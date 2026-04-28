@@ -1,83 +1,95 @@
-# visionBoard web app 
+# visionBoard
 
-This project is a web application similar to Pinterest, built using Node.js, Express.js, MongoDB, EJS for templating, Tailwind CSS for styling, and Passport.js for authentication. It includes features for user registration, authentication, creating boards, saving pins, following boards/users, liking pins, exploring content, searching pins/users, editing profiles, commenting on pins, and saving/unsaving pins.
+A Pinterest-style content discovery and pinning app built with Node.js, Express, MongoDB, and EJS. Users can register, create boards, save and organize pins, follow other users, like and comment on content, and explore a feed of pins from people they follow. Image uploads go through Cloudinary. Auth is handled by Passport.js with session-based login.
 
-## Table of Contents
-- [Demo](#demo)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Authentication](#authentication)
-- [Routes](#routes)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-
-## Demo
-There is no live demo available for this project.
+Currently server-side rendered with EJS. A migration to React is planned, along with AI-powered content recommendations.
 
 ## Features
-- User registration and authentication
-- Create and manage boards
-- Save and manage pins on boards
-- Follow boards and users
-- Like pins
-- Explore pins and boards
-- Search pins and users
-- Edit user profile
-- Follow/unfollow users
-- Comment on pins
-- Save/unsave pins
 
-## Technologies Used
-- [Node.js](https://nodejs.org/)
-- [Express.js](https://expressjs.com/)
-- [MongoDB](https://www.mongodb.com/)
-- [EJS](https://ejs.co/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Passport.js](http://www.passportjs.org/)
+**Auth**
+Users register with email and password. Passport.js handles login, session management, and route protection. Sessions are stored in MongoDB so they persist across server restarts.
 
-## Installation
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/yourusername/pinterest-like-app.git
-    cd pinterest-like-app
-    ```
+**Boards & Pins**
+Users create boards to organize content and save pins to them. Each pin supports an image (uploaded to Cloudinary), a title, description, and link. Pins can be saved, unsaved, liked, and commented on.
 
-2. Install dependencies:
-    ```bash
-    npm install
-    ```
+**Social**
+Users can follow and unfollow each other. Following someone brings their pins into your explore feed. Profile pages show a user's boards, pins, followers, and following count.
 
-3. Create a `.env` file in the root directory and add the following environment variables:
-    ```env
-    PORT=5000
-    MONGODB_URI=your_mongodb_uri
-    SESSION_SECRET=your_session_secret
-    ```
+**Search**
+Search works across both pins (by keyword/tag) and users (by username or name). Results render instantly on the same page without a full reload.
 
-4. Run the development server:
-    ```bash
-    npm start
-    ```
-
-5. The server will be running at `http://localhost:5000`.
-
-## Usage
-- **User Registration**: Sign up for a new account.
-- **User Login**: Log in with your registered credentials.
-- **Create Boards**: Create new boards to organize pins.
-- **Save Pins**: Save images or content to boards.
-- **Follow Boards/Users**: Follow boards or users to see their updates.
-- **Like Pins**: Like pins to save them or show appreciation.
-- **Explore Content**: Discover new pins and boards through the explore feature.
-- **Search Pins**: Search for specific pins by keywords.
-- **Search Users**: Search for users by username or name.
-- **Edit Profile**: Update user profile details.
-- **Follow/Unfollow Users**: Follow or unfollow other users.
-- **Comment on Pins**: Add comments to pins.
-- **Save/Unsave Pins**: Save or unsave pins for later viewing.
+**Profile**
+Users can edit their display name, bio, and profile photo. Profile photo uploads also go through Cloudinary.
 
 ## Project Structure
+
+visionBoard/
+├── bin/              # Server startup script (www)
+├── public/           # Static assets — CSS, client-side JS, images
+├── routes/           # Express route files — auth, pins, boards, users, search
+├── views/            # EJS templates — layouts, partials, and page views
+├── app.js            # Express app setup, middleware, session config, route mounting
+├── .env              # Environment variables (not committed)
+└── package.json
+
+
+**Why EJS?** This was built as a server-rendered app where each page is rendered on the server and sent as HTML. It works well and keeps the architecture simple — no separate frontend build step, no API layer needed. The tradeoff is that interactivity is limited without adding client-side JS on top.
+
+
+## Tech Stack
+
+Node.js · Express.js · MongoDB · Mongoose · EJS · TailwindCSS · Passport.js · Cloudinary · Multer · Express-Session
+
+
+## Getting Started
+
+bash
+git clone https://github.com/Samadali123/visionBoard.git
+cd visionBoard
+npm install
+
+
+Create a `.env` file in the root:
+
+.env
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+SESSION_SECRET=your_session_secret
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+
+
+Start the server:
+
+bash
+npm start
+
+
+App runs at `http://localhost:5000`.
+
+
+## Apis Overview
+Users Apis
+Pins Apis
+Comments Apis
+
+
+## Roadmap
+
+**React migration** — replacing EJS templates with a React frontend. The plan is to convert the app into a proper API + SPA architecture: Express serves JSON, React handles rendering. This gives full control over interactivity and state without the limitations of server-rendered templates.
+
+**AI features** — once on React, the plan is to add AI-powered pin recommendations based on what users save and engage with, and smart search that understands intent rather than just matching keywords.
+
+
+## Topics
+
+nodejs` `expressjs` `mongodb` `ejs` `tailwindcss` `passport` `cloudinary` `pinterest-clone` `session-auth` `fullstack`
+
+
+
+## Author
+
+Syed Samad Ali — [LinkedIn](https://www.linkedin.com/in/syedsamad125)
